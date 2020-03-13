@@ -1,0 +1,170 @@
+<script defer>
+
+    const individualMessage = `This message is for individuals...`;
+    
+    document.getElementsByName('WhatDescribesYou')[0].addEventListener("change", function(event){
+    
+        // Make a selection
+        if (event.target.value === 'Make a selection'){
+            resetValidation();
+            let allDy = [...document.querySelectorAll('.dy_all')];
+            allDy.map(el => {
+                el.classList.add('hideme');
+            })
+    
+            document.getElementById('dy_customMessage').innerHTML = '';
+        }
+    
+        // Individual
+        if (event.target.value === 'Individual'){
+            resetValidation();
+            let allDy = [...document.querySelectorAll('.dy_all')];
+            allDy.map(el => {
+                el.classList.add('hideme');
+            })
+    
+            document.getElementById('dy_customMessage').innerHTML = individualMessage;
+        }
+        else{
+            document.getElementById('dy_customMessage').innerHTML = '';
+        }
+    
+        // Employer
+        if (event.target.value === 'Employer'){
+            resetValidation();
+            let allDy = [...document.querySelectorAll('.dy_all')];
+            allDy.map(el => {
+                el.classList.remove('hideme');
+            })
+        }
+    
+        // Broker
+        if (event.target.value === 'Broker'){
+            resetValidation();
+            let allDy = [...document.querySelectorAll('.dy_all')];
+            allDy.map(el => {
+                el.classList.remove('hideme');
+            })
+    
+            let allEr = [...document.querySelectorAll('.dy_eronly')];
+            allEr.map(el => {
+                el.classList.add('hideme');
+            })
+        }
+    });
+    
+    
+    function resetValidation(){
+        var errorSummaryEl = document.querySelector('#ux_unum_form_errorSummary');
+        errorSummaryEl.classList.add('hideme');
+        var errorSummaryMessage = '';
+        var inputs = Array.prototype.slice.call(document.querySelectorAll('.ux_unum_form input, .ux_unum_form select, .ux_unum_form textarea'));
+        // Loop through them...
+        inputs.map(function (input) {
+            input.classList.remove('error');
+        });
+    }
+    
+    
+    
+    
+    // submit and validation logic...
+    
+    
+    document.getElementById("ux_unum_form_submit-btn").addEventListener("click", function(){
+        submitFormWithJS();
+    });
+    
+    checkQuerystring();
+    
+    function submitFormWithJS() {
+        checkQuerystring(); // get all the inputs...
+    
+        var inputs = Array.prototype.slice.call(document.querySelectorAll('.ux_unum_form input, .ux_unum_form select, .ux_unum_form textarea'));
+        var errorSummaryEl = document.querySelector('#ux_unum_form_errorSummary');
+        errorSummaryEl.classList.add('hideme');
+        var errorSummaryMessage = '';
+        var areAllValid = true; 
+    
+        // Loop through them...
+        inputs.map(function (input) {
+            input.classList.remove('error');
+    
+            if (!input.checkValidity()) {
+            // when validity fails...
+            input.classList.add('error');
+            errorSummaryMessage += "<p>The <span class=\"error-summary-highlight\">".concat(input.dataset.desc, "</span> field appears to be invalid.<p>");
+            errorSummaryEl.classList.remove('hideme');
+            areAllValid = false;
+            }
+        });
+        errorSummaryEl.innerHTML = errorSummaryMessage;
+        errorSummaryEl.tabIndex = 0;
+        errorSummaryEl.focus();
+        errorSummaryEl.tabIndex = -1; 
+    
+        // only if all validation is good...
+        if (areAllValid) {
+            document.querySelector('form.ux_unum_form').submit();
+        }
+    }
+    
+    function checkQuerystring() {
+        var targetThankYouPageUrl = document.getElementById('ThankYouPageUrlBase').value;
+        var currentUrlRaw = window.location.href;
+        var currentUrlQueryString = ''; 
+    
+        // first remove any hash tag stuff from the url..
+        if (currentUrlRaw.indexOf('#') > 0) {
+            currentUrlRaw = currentUrlRaw.substr(0, currentUrlRaw.indexOf('#')); // remove # and anything after it from the url
+        } 
+    
+        // now see if there remains a valid query string...
+        if (currentUrlRaw.indexOf('?') > 0) {
+            currentUrlQueryString = currentUrlRaw.slice(currentUrlRaw.indexOf('?'));
+        }
+    
+        var result = targetThankYouPageUrl + currentUrlQueryString;
+        result = encodeURIComponent(result);
+        document.getElementsByName('ThankYouPageUrl')[0].value = result;    
+    
+        setTimeout(function(){
+            document.getElementsByName('GoogleAnalyticsClientId')[0].value = ga.getAll()[0].get('clientId'); 
+        }, 1000); 
+    
+        document.getElementsByName('ReferralUrl')[0].value = document.referrer;
+        // document.getElementsByName('LandingPageUrl')[0].value = document.URL; // baseURI if you wanted the qs also (this seems to have it also)
+        document.getElementsByName('LandingPageUrl')[0].value = window.location.href.split('?')[0]; 
+        // document.getElementsByName('website')[0].value = document.location.origin;
+    
+        // utm_source
+        let received_utm_source = getQueryVariable('utm_source')
+        if (received_utm_source) {document.getElementsByName('utm_source')[0].value = received_utm_source;}
+    
+        // utm_medium
+        let received_utm_medium = getQueryVariable('utm_medium')
+        if (received_utm_medium) {document.getElementsByName('utm_medium')[0].value = received_utm_medium;}
+    
+        // utm_campaign
+        let received_utm_campaign = getQueryVariable('utm_campaign')
+        if (received_utm_campaign) {document.getElementsByName('utm_campaign')[0].value = received_utm_campaign;}
+    
+        // utm_term
+        let received_utm_term = getQueryVariable('utm_term')
+        if (received_utm_term) {document.getElementsByName('utm_term')[0].value = received_utm_term;}
+    
+        // utm_content
+        let received_utm_content = getQueryVariable('utm_content')
+        if (received_utm_content) {document.getElementsByName('utm_content')[0].value = received_utm_content;}
+    
+    }
+    function getQueryVariable(variable) {
+        var query = window.location.search.substring(1);
+        var vars = query.split("&");
+        for (var i=0;i<vars.length;i++) {
+            var pair = vars[i].split("=");
+            if(pair[0] == variable){return pair[1];}
+        }
+        return(false);
+    }
+    </script>

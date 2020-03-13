@@ -1,0 +1,54 @@
+.acoustic_text{
+    color: purple; 
+}
+.uxform_text{
+    color: #015294;
+}
+.flex-panel{
+    display: flex;
+}
+.col-wide{
+    flex:3;
+}
+.col-narrow{
+    flex:1;
+}
+.col-button{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+#tempDom{
+    margin-right: 2rem;
+}
+.buttonPrimary{
+    background-color: #90ee90;
+    border: 1px green solid;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+.buttonPrimary:hover{
+    background-color: #77D577;
+}
+.buttonPrimary:active{
+    color: white;
+}
+.buttonSecondary{
+    background-color: white;
+    border: 1px green solid;
+    color: green;
+    padding: 1rem 2rem;
+    font-size: 1rem;
+    border-radius: .25rem;
+    cursor: pointer;
+}
+.buttonSecondary:hover{
+    background-color: #77D577;
+    color: black;
+}
+.buttonSecondary:active{
+    color: white;
+}

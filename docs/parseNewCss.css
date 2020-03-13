@@ -1,0 +1,119 @@
+.ux_unum_form input {
+    background-color: white;
+    border-radius: 8px;
+    border: 2px solid #c3d5e1;
+    box-sizing: border-box;
+    color: black;
+    font-family: "Open Sans";
+    font-size: inherit; /* 1rem */
+    margin-bottom: 1.5rem;
+    padding: .4rem 1rem;
+    width: 100%;
+}
+.ux_unum_form input[type="button"], .ux_unum_form input[type="submit"], .ux_unum_form button.submit {
+    box-sizing: border-box;
+    background-color: #357c08;
+    border: 1px transparent solid;
+    border-radius: 8px;
+    color: white;
+    cursor: pointer;
+    display: inline-block;
+    font-family: "Open Sans";
+    font-size: inherit; /* 1rem */
+    font-weight: 200;
+    line-height: 1.5rem;
+    padding: .719em 1.5em; /* .5rem 1.5rem; */
+    text-align: center;
+    text-decoration: none;
+    width: auto;
+    transition: background-color .3s linear;
+}
+.ux_unum_form input[type="button"]:hover, .ux_unum_form input[type="submit"]:hover, .ux_unum_form button.submit:hover {
+    background-color: #015294;
+}
+.ux_unum_form select {
+    -moz-appearance: none;
+    -webkit-appearance: none;
+    background-color: #fff;
+    background-color: white;
+    background-image: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAwAAAAYCAYAAADOMhxqAAAAAXNSR0IArs4c6QAAAZJJREFUOBHVk7FKw1AUhnOTUIcGXESK4NqhSxO6SS04FlzEZxChOLi6SMFFH0F8BvUVSi1OlrRLIbNDWywYtUulTfz/0BPSNH0AL1zOOf/57r3nXs7VtIxRLpdPODNSmkqLlUplez6fD6ibplnqdrtfSUZPBvQB34VhuMdJP51fOQFlVAG2AYkeKqVq/X6/IwvjE+r1+hbghwRMRlFjThYY4uTz+Wv4pxIn7M50Og3G43GLWnS04zilxWLhIs5RzBi/hmE4rusO9GazqQdBwFI2wVyfI0PW8H2/gTrPM3ZNS/ue532YUH3MRjq7If7eoP8rWaEdnvBKmZ2Zvgna5FnHuICz0pFpkDEZssZoNPopFAqf0I6zQNGw4LLX67Wi1kBJyrbtNmxVgKQF3AFcgw2jbqWDz3IGaJYEl/6MOTKM424dDocTlMYNjpZgZADeoOkeRYv/A4VisXgLIPqejOlToy9DfpbEGu5ygM58oYBXOUTtr3ESTlySiHi1d5S2i93f8DXvRRfLbl0blmVdrYlL4Q8yaI6pSwQXRQAAAABJRU5ErkJggg==");
+    background-position: calc(100% - 12px) 50%;
+    background-repeat: no-repeat;
+    border-radius: 8px;
+    border: 2px solid #c3d5e1;
+    box-sizing: border-box;
+    color: black;
+    display: block;
+    font-family: "Open Sans";
+    font-size: inherit; /* 1rem */
+    margin-bottom: 1.5rem;
+    padding: .4rem 1rem;
+    width: 100%;
+}
+.ux_unum_form textarea {
+    box-sizing: border-box;
+    background-color: #fff;
+    border: 2px solid #c3d5e1;
+    border-radius: 8px;
+    font-family: "Open Sans";
+    font-size: inherit; /* 1rem */
+    padding: .4rem 1rem;
+    width: 100%;
+    margin-bottom: 1.5rem;
+    cursor: ns-resize;
+    resize: vertical;
+    overflow: auto;
+}
+.ux_unum_form .ux_unum_form-label {
+    box-sizing: border-box;
+    color: #5a7184;
+    display: block;
+    font-family: Open Sans;
+    font-size: inherit; /* 1rem */
+    font-weight: 400;
+    margin-bottom: .3rem;
+}
+.ux_unum_form .ux_unum_form-required {
+    box-sizing: border-box;
+    color: red;
+    font-family: Open Sans;
+    font-size: inherit; /* 1rem */
+    font-weight: bolder;
+}
+
+/* Never Style input:invalid, it is bad. It triggers way too early. Uncomment to see. */
+/* input:invalid { 
+       border-color: red;
+   }*/
+
+/* Applying an error class means we keep browser level feedback, error handling, and focus management. */
+.ux_unum_form .error-summary{
+    background-color: rgba(231,86,86,.15);
+    font-family: "Open Sans";
+    line-height: 1.5rem;
+    margin-bottom: 1rem;
+    padding: 1rem;
+}
+.ux_unum_form .error-summary-highlight{
+    color: #b33535;
+}
+
+.ux_unum_form input.error,
+.ux_unum_form select.error,
+.ux_unum_form textarea.error {
+    background-color: rgba(231,86,86,.15);
+    border-color: #b33535;
+    outline: none;
+}
+.ux_unum_form input.error:valid,
+.ux_unum_form select.error:valid,
+.ux_unum_form textarea.error:valid {
+    background-color: #fff;
+    border-color: #c3d5e1;
+}
+
+/* util */
+.hideme{
+    display: none !important;
+}
+
