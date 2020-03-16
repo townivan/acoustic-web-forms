@@ -7,10 +7,7 @@
         // Make a selection
         if (event.target.value === 'Make a selection'){
             resetValidation();
-            let allDy = [...document.querySelectorAll('.dy_all')];
-            allDy.map(el => {
-                el.classList.add('hideme');
-            })
+            hideAllFormFields();
     
             document.getElementById('dy_customMessage').innerHTML = '';
         }
@@ -18,10 +15,7 @@
         // Individual
         if (event.target.value === 'Individual'){
             resetValidation();
-            let allDy = [...document.querySelectorAll('.dy_all')];
-            allDy.map(el => {
-                el.classList.add('hideme');
-            })
+            hideAllFormFields();
     
             document.getElementById('dy_customMessage').innerHTML = individualMessage;
         }
@@ -32,26 +26,33 @@
         // Employer
         if (event.target.value === 'Employer'){
             resetValidation();
-            let allDy = [...document.querySelectorAll('.dy_all')];
-            allDy.map(el => {
-                el.classList.remove('hideme');
-            })
+            showAllFormFields();
         }
     
         // Broker
         if (event.target.value === 'Broker'){
             resetValidation();
-            let allDy = [...document.querySelectorAll('.dy_all')];
-            allDy.map(el => {
-                el.classList.remove('hideme');
-            })
+            showAllFormFields();
     
-            let allEr = [...document.querySelectorAll('.dy_eronly')];
-            allEr.map(el => {
+            let allEr = Array.prototype.slice.call(document.querySelectorAll('.dy_eronly'));
+            allEr.map(function (el){
                 el.classList.add('hideme');
             })
         }
     });
+
+    function hideAllFormFields(){
+        let allDy = Array.prototype.slice.call(document.querySelectorAll('.dy_all'));
+        allDy.map(function (el){
+            el.classList.add('hideme');
+        })
+    }
+    function showAllFormFields(){
+        let allDy = Array.prototype.slice.call(document.querySelectorAll('.dy_all'));
+        allDy.map(function (el){
+            el.classList.remove('hideme');
+        })
+    }
     
     
     function resetValidation(){
