@@ -122,7 +122,7 @@ function parseTa(){
     let bottomCode = `<input type="hidden" name="formSourceName" value="StandardForm">
     <!-- DO NOT REMOVE HIDDEN FIELD sp_exp -->
     <input type="hidden" name="sp_exp" value="yes">
-    <input type="hidden" id="thankyoupagebase">`; // create thankyoupagebase field
+    <input type="hidden" id="ThankYouPageUrlBase">`; // create ThankYouPageUrlBase field
     newForm.innerHTML =  topCode + newInputFieldsCode + bottomCode;
 
     // put it into the destination textarea
