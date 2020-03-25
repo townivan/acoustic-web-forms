@@ -21,10 +21,7 @@ function togglehide(){
 
 function parseTa(){
     let inputCode = document.getElementById('taSource').value;
-    // console.log(inputCode)
-    
     let tempDom = document.getElementById('tempDom');
-    // console.log(tempDom)
     tempDom.innerHTML = inputCode;
 
     // now we parse that new DOM to extract the elements that we want.
@@ -35,16 +32,13 @@ function parseTa(){
     let formEl = tempDom.querySelector('form');
     var formElClone = formEl.cloneNode(true);
     formElClone.classList.add('ux_unum_form');
-    // console.log('formElClone:', formElClone);
     transformedDom.innerHTML = formElClone.outerHTML;
 
     let newForm = document.querySelector('#transformedDom form');
-    // newForm.innerHTML = `<div class="error-summary hideme" id="ux_unum_form_errorSummary"></div>`;
 
     // get all orig input fields
     let newInputFieldsCode = '';
-    let orig_InputFields = [...tempDom.querySelectorAll('select, input[type=text], input[type=submit]')];
-    let beginHiddenFields = false;
+    let orig_InputFields = [...tempDom.querySelectorAll('select, input[type=text], input[type=submit], input[type=hidden]')];
     // console.log('orig_InputFields:', orig_InputFields);
     orig_InputFields.map(el => {
         let elClone = el.cloneNode(true);
@@ -52,76 +46,24 @@ function parseTa(){
             elClone.classList.remove('defaultText', 'buttonStyle');
             elClone.classList.add('submit');
             elClone.id = 'ux_unum_form_submit-btn';
-            beginHiddenFields = true; // hides fields after the submit button
             elClone.setAttribute("type", "button");
         }
-        else{
-            // let's try to hide certain ones even if they are before the submit button...
-            let isCloneSpecial = false;
-            if (elClone.getAttribute('name').toLowerCase() === 'thankyoupageurl'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'website'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'campaign name'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'lead source'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'gaclientid'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'referrer'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'landingpageurl'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'utm_campaign'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'utm_content'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'utm_medium'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'utm_source'){
-                isCloneSpecial = true;
-            }
-            if (elClone.getAttribute('name').toLowerCase() === 'utm_term'){
-                isCloneSpecial = true;
-            }
+        else if (elClone.getAttribute('type') === 'hidden') {
 
-
-
+        }
+        else{ // not button not hidden
             elClone.removeAttribute('style');
             elClone.classList.remove('selectInput', 'defaultText', 'textInput');
             elClone.classList.add('formVal');
-            if (beginHiddenFields || isCloneSpecial){
-                elClone.classList.add('hideme');
-            }
             elClone.setAttribute('data-desc', `${el.getAttribute('label')}`);
-            if (!isCloneSpecial){
-                elClone.required = true;
-            }
-            
-            if (beginHiddenFields || isCloneSpecial){
-                newInputFieldsCode += `<label for="${el.id}" class="ux_unum_form-label hideme">${el.getAttribute('label')}:</label>`;
-            }
-            else{
-                newInputFieldsCode += `<label for="${el.id}" class="ux_unum_form-label"><span class="ux_unum_form-required">*</span> ${el.getAttribute('label')}:</label>`;
-            }
+
+            newInputFieldsCode += `<label for="${el.id}" class="ux_unum_form-label"><span class="ux_unum_form-required">*</span> ${el.getAttribute('label')}:</label>`;
         }
         newInputFieldsCode += elClone.outerHTML;
     })
 
     let topCode = `<div class="error-summary hideme" id="ux_unum_form_errorSummary"></div>`;
-    let bottomCode = `<input type="hidden" name="formSourceName" value="StandardForm">
-    <!-- DO NOT REMOVE HIDDEN FIELD sp_exp -->
-    <input type="hidden" name="sp_exp" value="yes">
+    let bottomCode = `<!-- DO NOT REMOVE HIDDEN FIELD sp_exp -->
     <input type="hidden" id="ThankYouPageUrlBase">`; // create ThankYouPageUrlBase field
     newForm.innerHTML =  topCode + newInputFieldsCode + bottomCode;
 
